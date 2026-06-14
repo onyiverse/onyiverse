@@ -228,20 +228,23 @@ footer a:hover { color: var(--amber); }
     <p class="section-desc">Visual content for Archif, the Lebanese vintage reseller platform — capturing the texture, provenance, and character of curated vintage pieces.</p>
   </div>
   <div class="photo-grid cols-3 reveal">
-    <div class="photo-slot wide span-2">
-      <img src="ARCHIF-01.jpg" alt="Archif Hero Shot" style="aspect-ratio:16/9;"></div>
+    <!-- Hero — spans 2 cols, stretches to match portrait height -->
+    <div class="photo-slot span-2 clickable" style="height:560px;" onclick="openLightbox('ARCHIF-01.jpg')">
+      <img src="ARCHIF-01.jpg" alt="Archif">
     </div>
-    <div class="photo-slot tall">
-      <img src="ARCHIF-02.JPG" alt="Archif 2" style="aspect-ratio:3/4;"></div>
+    <!-- Portrait on the right -->
+    <div class="photo-slot clickable" style="height:560px;" onclick="openLightbox('ARCHIF-02.JPG')">
+      <img src="ARCHIF-02.JPG" alt="Archif">
     </div>
-    <div class="photo-slot">
-      <img src="ARCHIF-03.JPG" alt="Archif 3" style="aspect-ratio:16/9;"></div>
+    <!-- Three equal squares on the bottom row -->
+    <div class="photo-slot h-square clickable" onclick="openLightbox('ARCHIF-03.JPG')">
+      <img src="ARCHIF-03.JPG" alt="Archif">
     </div>
-    <div class="photo-slot">
-      <img src="ARCHIF04.jpg" alt="Archif 4" style="aspect-ratio:16/9;"></div>
+    <div class="photo-slot h-square clickable" onclick="openLightbox('ARCHIF04.jpg')">
+      <img src="ARCHIF04.jpg" alt="Archif">
     </div>
-    <div class="photo-slot">
-      <img src="ARCHIF-05.JPG" alt="Archif 5" style="aspect-ratio:16/9;"></div>
+    <div class="photo-slot h-square clickable" onclick="openLightbox('ARCHIF-05.JPG')">
+      <img src="ARCHIF-05.JPG" alt="Archif">
     </div>
   </div>
 </div>
