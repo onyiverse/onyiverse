@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Onyiverse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --black: #0A0806;
+  --amber: #C94A00;
+  --amber-light: #E85A00;
+  --amber-glow: #FF6B1A;
+  --warm-white: #FAF5EE;
+  --cream: #F2E8DA;
+  --tan: #C8A882;
+  --mid: #7A6A58;
+  --gold: #D4A853;
+  --orange-bg: #C94A00;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--warm-white); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 52px; transition: background 0.3s;
+}
+nav.scrolled { background: rgba(10,8,6,0.95); backdrop-filter: blur(12px); }
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: 0.06em; color: var(--amber); text-decoration: none; font-style: italic; }
+.nav-back { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--amber-glow); }
+
+/* PAGE HEADER */
+.page-header {
+  min-height: 60vh;
+  background: var(--orange-bg);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 140px 52px 64px;
+  position: relative; overflow: hidden;
+}
+
+.page-header::before {
+  content: 'SUBSTACK\AESSAYS';
+  white-space: pre;
+  position: absolute;
+  top: 50%; left: 52px;
+  transform: translateY(-50%);
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(60px, 10vw, 120px);
+  font-weight: 400;
+  color: rgba(10,8,6,0.12);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.page-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(10,8,6,0.6); margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.9; color: var(--black);
+  margin-bottom: 32px;
+}
+
+.page-desc {
+  max-width: 600px;
+  font-size: 17px; font-weight: 300;
+  line-height: 1.8; color: rgba(10,8,6,0.75);
+}
+
+/* ESSAYS SECTION */
+.essays-section {
+  padding: 80px 52px;
+  background: var(--orange-bg);
+}
+
+.essays-label {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--black);
+  margin-bottom: 48px;
+  opacity: 0.8;
+}
+
+.essays-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Essay card */
+.essay-card {
+  background: var(--warm-white);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: var(--black);
+  transition: transform 0.22s, box-shadow 0.22s;
+}
+.essay-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+
+.essay-card-img {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; display: block;
+  background: #DDD;
+}
+
+.essay-card-img-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  background: #E8DDD0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 6px;
+}
+.essay-placeholder-label {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(10,8,6,0.3); text-align: center; padding: 8px;
+}
+
+.essay-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+
+.essay-card-title {
+  font-size: 15px; font-weight: 600;
+  line-height: 1.35; color: var(--black);
+  margin-bottom: 8px;
+}
+
+.essay-card-sub {
+  font-size: 12px; font-weight: 300;
+  color: rgba(10,8,6,0.55); line-height: 1.5;
+  margin-bottom: 16px; flex: 1;
+}
+
+.essay-card-meta {
+  font-size: 11px; font-weight: 600;
+  color: var(--amber); letter-spacing: 0.06em;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.essay-card-read {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: var(--black);
+  color: var(--warm-white);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; text-align: center;
+  transition: background 0.2s;
+}
+.essay-card-read:hover { background: var(--amber); }
+
+/* SUBSCRIBE CTA */
+.subscribe-cta {
+  background: var(--black);
+  padding: 80px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 48px;
+}
+
+.subscribe-left {}
+.subscribe-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--warm-white);
+  margin-bottom: 12px;
+}
+.subscribe-sub {
+  font-size: 15px; font-weight: 300;
+  color: var(--mid); max-width: 400px; line-height: 1.6;
+}
+
+.subscribe-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 44px;
+  background: var(--amber); color: var(--warm-white);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.subscribe-btn:hover { background: var(--amber-light); }
+
+/* back footer */
+.back-footer {
+  background: var(--orange-bg);
+  padding: 52px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.back-footer-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--black); }
+.back-btn {
+  border: 2px solid var(--black); color: var(--black);
+  padding: 14px 32px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.back-btn:hover { background: var(--black); color: var(--orange-bg); }
+
+footer {
+  background: var(--black); padding: 28px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--mid);
+  border-top: 1px solid rgba(201,74,0,0.1);
+}
+footer a { color: var(--mid); text-decoration: none; }
+footer a:hover { color: var(--amber); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .page-header { padding: 120px 24px 48px; }
+  .essays-section { padding: 56px 24px; }
+  .essays-grid { grid-template-columns: 1fr 1fr; }
+  .subscribe-cta { flex-direction: column; padding: 56px 24px; }
+  .back-footer { padding: 40px 24px; flex-direction: column; gap: 24px; align-items: flex-start; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+@media (max-width: 520px) {
+  .essays-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Onyiverse</a>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Writing</p>
+  <h1 class="page-title">SUBSTACK<br>ESSAYS</h1>
+  <p class="page-desc">The Onyiverse is a reflective Substack newsletter curated by me, a writer and media curator. It delves into themes of identity, culture, intimacy, and selfhood through personal essays that blend philosophical inquiry with cultural critique. I aim to create "a space for people who can't help but ask why all the time," inviting my readers to explore nuanced perspectives on topics like beauty standards, linguistics, girlhood, and the societal expectations placed on women (and everyone).</p>
+</div>
+
+<section class="essays-section">
+  <div class="essays-label reveal">popular essays</div>
+
+  <div class="essays-grid">
+
+    <!--
+      ESSAY 1 — "you dream in a language that I can't understand."
+      Image: replace placeholder with <img src="essay-01.jpg" class="essay-card-img">
+      Link: update href to real Substack URL
+    -->
+    <a class="essay-card reveal" href="https://substack.com/@onyiverse" target="_blank" rel="noopener">
+      <div class="essay-card-img-placeholder">
+        <div class="essay-placeholder-label">Add essay cover<br>essay-01.jpg</div>
+      </div>
+      <div class="essay-card-body">
+        <div class="essay-card-title">you dream in a language that I can't understand.</div>
+        <div class="essay-card-sub">understanding reality through the lens of language</div>
+        <div class="essay-card-meta">
+          <span>♡ 172 · 17 replies</span>
+          <span>Oct 2024</span>
+        </div>
+        <div class="essay-card-read">Read on Substack ↗</div>
+      </div>
+    </a>
+
+    <!--
+      ESSAY 2 — "when did drinking alcohol become a protected characteristic?"
+      Update href to real URL
+    -->
+    <a class="essay-card reveal" href="https://substack.com/@onyiverse" target="_blank" rel="noopener">
+      <div class="essay-card-img-placeholder">
+        <div class="essay-placeholder-label">Add essay cover<br>essay-02.jpg</div>
+      </div>
+      <div class="essay-card-body">
+        <div class="essay-card-title">when did drinking alcohol become a protected characteristic?</div>
+        <div class="essay-card-sub">a reflection on autonomy, alcohol and social expectations. (oh and sober weddings)</div>
+        <div class="essay-card-meta">
+          <span>♡ 87 · 12 replies</span>
+          <span>Jan 2025</span>
+        </div>
+        <div class="essay-card-read">Read on Substack ↗</div>
+      </div>
+    </a>
+
+    <!--
+      ESSAY 3 — "what if you're not one of the good ones?"
+      Update href to real URL
+    -->
+    <a class="essay-card reveal" href="https://substack.com/@onyiverse" target="_blank" rel="noopener">
+      <div class="essay-card-img-placeholder">
+        <div class="essay-placeholder-label">Add essay cover<br>essay-03.jpg</div>
+      </div>
+      <div class="essay-card-body">
+        <div class="essay-card-title">what if you're not one of the good ones?</div>
+        <div class="essay-card-sub">the illusion of redemption in a performative world</div>
+        <div class="essay-card-meta">
+          <span>♡ 99 · 12 replies</span>
+          <span>Jan 2025</span>
+        </div>
+        <div class="essay-card-read">Read on Substack ↗</div>
+      </div>
+    </a>
+
+    <!--
+      ESSAY 4 — "'girlhood' felt like an exclusive members club"
+      Update href to real URL
+    -->
+    <a class="essay-card reveal" href="https://substack.com/@onyiverse" target="_blank" rel="noopener">
+      <div class="essay-card-img-placeholder">
+        <div class="essay-placeholder-label">Add essay cover<br>essay-04.jpg</div>
+      </div>
+      <div class="essay-card-body">
+        <div class="essay-card-title">'girlhood' felt like an exclusive members club</div>
+        <div class="essay-card-sub">it doesn't any more</div>
+        <div class="essay-card-meta">
+          <span>♡ 187 · 9 replies</span>
+          <span>Jul 2024</span>
+        </div>
+        <div class="essay-card-read">Read on Substack ↗</div>
+      </div>
+    </a>
+
+    <!-- Add more essay cards here by copying the block above -->
+
+  </div>
+</section>
+
+<div class="subscribe-cta reveal">
+  <div class="subscribe-left">
+    <div class="subscribe-title">Read more on Substack</div>
+    <p class="subscribe-sub">New essays on culture, identity, and everything in between. Subscribe to get them in your inbox.</p>
+  </div>
+  <a href="https://substack.com/@onyiverse" target="_blank" rel="noopener" class="subscribe-btn">Subscribe ↗</a>
+</div>
+
+<div class="back-footer">
+  <div class="back-footer-title">← Back to Onyiverse</div>
+  <a href="index.html" class="back-btn">Home</a>
+</div>
+
+<footer>
+  <span>© 2026 Onyiyechukwu Dozie</span>
+  <span>London, UK</span>
+  <a href="mailto:onyiverse@outlook.com">onyiverse@outlook.com</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

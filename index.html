@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onyi — Digital Storyteller & Media Curator</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --black: #0A0806;
+  --amber: #C94A00;
+  --amber-light: #E85A00;
+  --amber-glow: #FF6B1A;
+  --warm-white: #FAF5EE;
+  --cream: #F2E8DA;
+  --tan: #C8A882;
+  --mid: #7A6A58;
+  --gold: #D4A853;
+  --section-bg: #0F0C09;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--warm-white);
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 52px;
+  transition: background 0.3s;
+}
+nav.scrolled { background: rgba(10,8,6,0.95); backdrop-filter: blur(12px); }
+
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px; letter-spacing: 0.06em;
+  color: var(--amber); text-decoration: none;
+  font-style: italic;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--tan); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--amber-glow); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 52px 0;
+  position: relative; overflow: hidden;
+  background: var(--black);
+}
+
+.hero-top {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 120px 52px 0;
+  z-index: 2;
+}
+
+.hero-side-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--amber);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  opacity: 0.7;
+}
+
+.hero-center {
+  text-align: center;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -55%);
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-name-big {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(100px, 18vw, 220px);
+  font-weight: 400;
+  line-height: 0.85;
+  color: var(--amber);
+  letter-spacing: -0.01em;
+  display: block;
+}
+
+.hero-est {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 32px);
+  color: var(--amber);
+  opacity: 0.7;
+  margin-top: 12px;
+  display: block;
+}
+
+.hero-roles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 52px;
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.hero-role {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.6;
+}
+
+/* Photo circle placeholder */
+.hero-photo-wrap {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -18%);
+  z-index: 3;
+  width: 200px; height: 200px;
+}
+
+.hero-photo {
+  width: 200px; height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
+  display: block;
+  border: 2px solid rgba(201,74,0,0.3);
+}
+
+.hero-photo-placeholder {
+  width: 200px; height: 200px;
+  border-radius: 20px;
+  background: #1A1208;
+  border: 1px dashed rgba(201,74,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+}
+
+.hero-photo-label {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(201,74,0,0.4); text-align: center; padding: 0 12px;
+}
+
+.hero-founder {
+  position: absolute;
+  bottom: calc(160px + 32px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.5;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: var(--black);
+  border-top: 1px solid rgba(201,74,0,0.2);
+  padding: 40px 52px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+}
+
+.stat-item {
+  padding: 0 32px;
+  border-right: 1px solid rgba(201,74,0,0.15);
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px; font-weight: 400;
+  color: var(--amber); line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid);
+}
+
+/* ── HELLO SECTION ── */
+.hello-section {
+  padding: 100px 52px;
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  border-top: 1px solid rgba(201,74,0,0.1);
+}
+
+.hello-left {}
+
+.hello-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(72px, 10vw, 120px);
+  line-height: 0.9;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+
+.hello-welcome {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--amber);
+  opacity: 0.6;
+  margin-bottom: 48px;
+}
+
+.hello-body {
+  font-size: 16px; font-weight: 300;
+  line-height: 1.85; color: var(--cream);
+}
+
+.hello-body p { margin-bottom: 16px; }
+.hello-body p:last-child { margin-bottom: 0; }
+
+.hello-right {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 4px;
+}
+
+.hello-thumb {
+  background: #1A1208;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hello-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+.hello-thumb-placeholder {
+  aspect-ratio: 9/16;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 6px;
+  background: #150F07;
+}
+.hello-thumb-placeholder.wide { aspect-ratio: 16/9; }
+.hello-thumb-placeholder.square { aspect-ratio: 1/1; }
+
+.thumb-label {
+  font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(201,74,0,0.3); text-align: center; padding: 4px;
+}
+
+/* ── SECTION NAV ── */
+.section-nav {
+  padding: 0 52px;
+  background: var(--black);
+  border-top: 1px solid rgba(201,74,0,0.15);
+}
+
+.section-nav-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.5;
+  padding: 40px 0 28px;
+  display: block;
+}
+
+.section-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding-bottom: 0;
+}
+
+.section-card {
+  display: block;
+  text-decoration: none;
+  padding: 52px 40px;
+  background: var(--section-bg);
+  border-top: 3px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,74,0,0.3), transparent);
+}
+
+.section-card:hover {
+  border-top-color: var(--amber);
+  background: #130E08;
+}
+
+.section-card-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+.section-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px; line-height: 1;
+  color: var(--warm-white);
+  margin-bottom: 20px;
+}
+
+.section-card-desc {
+  font-size: 14px; font-weight: 300;
+  line-height: 1.7; color: var(--mid);
+  margin-bottom: 32px;
+  max-width: 280px;
+}
+
+.section-card-link {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 8px;
+  transition: gap 0.2s;
+}
+.section-card:hover .section-card-link { gap: 14px; }
+
+/* ── CONTACT ── */
+.contact {
+  padding: 100px 52px;
+  background: var(--amber);
+  text-align: center;
+}
+
+.contact-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  color: var(--black);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.contact-title em { font-style: italic; }
+
+.contact-sub {
+  font-size: 16px; font-weight: 300;
+  color: rgba(10,8,6,0.65);
+  margin-bottom: 48px;
+  max-width: 400px;
+  margin-left: auto; margin-right: auto;
+}
+
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 44px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.22s;
+}
+
+.contact-btn.primary {
+  background: var(--black); color: var(--amber);
+}
+.contact-btn.primary:hover { background: #1A1208; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  padding: 28px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; letter-spacing: 0.06em;
+  color: var(--mid);
+  border-top: 1px solid rgba(201,74,0,0.1);
+}
+footer a { color: var(--mid); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--amber); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hero-top { padding: 110px 24px 0; }
+  .stats-bar { padding: 32px 24px; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .stat-item { border-right: none; padding: 0; }
+  .hello-section { grid-template-columns: 1fr; padding: 64px 24px; gap: 48px; }
+  .hello-right { grid-template-columns: repeat(2,1fr); }
+  .section-nav { padding: 0 24px; }
+  .section-nav-grid { grid-template-columns: 1fr; }
+  .section-card { padding: 40px 24px; }
+  .contact { padding: 72px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Onyiverse</a>
+  <ul class="nav-links">
+    <li><a href="writing.html">Writing</a></li>
+    <li><a href="tiktok.html">Short-Form</a></li>
+    <li><a href="visual.html">Visual</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+
+  <div class="hero-top">
+    <span class="hero-side-label">Digital Storyteller</span>
+    <span class="hero-side-label">Media Curator</span>
+  </div>
+
+  <div class="hero-roles" aria-hidden="true">
+    <span class="hero-role">Digital Storyteller</span>
+    <span class="hero-role">Media Curator</span>
+  </div>
+
+  <div class="hero-center">
+    <span class="hero-name-big">ONYI</span>
+    <span class="hero-est">Est. 2024</span>
+  </div>
+
+  <!-- 
+    YOUR PHOTO: replace the placeholder below with:
+    <img src="onyi-photo.jpg" alt="Onyi" class="hero-photo">
+    then delete the .hero-photo-placeholder div
+  -->
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-placeholder">
+      <div class="hero-photo-label">Add your photo here<br>onyi-photo.jpg</div>
+    </div>
+  </div>
+
+  <p class="hero-founder">Founder of The Onyiverse</p>
+
+  <!-- STATS BAR sits at bottom of hero -->
+  <div class="stats-bar">
+    <div class="stat-item reveal">
+      <div class="stat-num">12K+</div>
+      <div class="stat-label">TikTok Followers</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">2.7K+</div>
+      <div class="stat-label">Substack Subscribers</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">LFW</div>
+      <div class="stat-label">Campaign Direction</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">Est.</div>
+      <div class="stat-label">2024</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── HELLO SECTION ── -->
+<section class="hello-section">
+  <div class="hello-left reveal">
+    <h2 class="hello-heading">HELLO!</h2>
+    <p class="hello-welcome">Welcome</p>
+    <div class="hello-body">
+      <p>I'm Onyi, a digital storyteller and media curator exploring culture, identity, and introspection through short-form video, essays, and visual content.</p>
+      <p>My creative platform, Onyiverse, spans TikTok (12K+ followers) and Substack (2.7K+ subscribers), where I build reflective narratives that blend aesthetic storytelling with emotional honesty.</p>
+      <p>Whether through candid film photography, personal writing, or curated digital visuals, my goal is to create work that feels intentional, warm, and human.</p>
+    </div>
+  </div>
+
+  <div class="hello-right reveal">
+    <!--
+      CONTENT GRID — replace each placeholder with a screenshot/thumbnail from your TikTok or Substack.
+      For each slot, delete the .hello-thumb-placeholder div and add:
+      <img src="thumb-01.jpg" alt="..." style="width:100%;height:100%;object-fit:cover;">
+    -->
+    <div class="hello-thumb" style="grid-column: span 2;">
+      <div class="hello-thumb-placeholder wide">
+        <div class="thumb-label">TikTok/Substack thumbnail<br>thumb-01.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder">
+        <div class="thumb-label">thumb-02.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder square">
+        <div class="thumb-label">thumb-03.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder square">
+        <div class="thumb-label">thumb-04.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder square">
+        <div class="thumb-label">thumb-05.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder square">
+        <div class="thumb-label">thumb-06.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb">
+      <div class="hello-thumb-placeholder square">
+        <div class="thumb-label">thumb-07.jpg</div>
+      </div>
+    </div>
+    <div class="hello-thumb" style="grid-column: span 2;">
+      <div class="hello-thumb-placeholder wide">
+        <div class="thumb-label">thumb-08.jpg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION NAVIGATION ── -->
+<div class="section-nav">
+  <span class="section-nav-label reveal">Explore</span>
+  <div class="section-nav-grid">
+
+    <a href="writing.html" class="section-card reveal">
+      <div class="section-card-eyebrow">Writing</div>
+      <div class="section-card-title">Substack<br>Essays</div>
+      <div class="section-card-desc">The Onyiverse is a reflective Substack newsletter delving into themes of identity, culture, intimacy, and selfhood through personal essays that blend philosophical inquiry with cultural critique.</div>
+      <div class="section-card-link">Read the essays →</div>
+    </a>
+
+    <a href="tiktok.html" class="section-card reveal">
+      <div class="section-card-eyebrow">Short-Form Video</div>
+      <div class="section-card-title">Short<br>Form</div>
+      <div class="section-card-desc">Short-form content exploring culture, books, identity and the world around us. 12K+ followers on TikTok, with videos spanning recommendation, reflection, and cultural commentary.</div>
+      <div class="section-card-link">Watch the videos →</div>
+    </a>
+
+    <a href="visual.html" class="section-card reveal">
+      <div class="section-card-eyebrow">Photography & Film</div>
+      <div class="section-card-title">Visual<br>Stories</div>
+      <div class="section-card-desc">Candid film photography and visual content across fashion, culture, and live events. Work includes brand photography for Archif, Janded, and the Hertunba x Lagos Fashion Week campaign.</div>
+      <div class="section-card-link">View the work →</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <h2 class="contact-title reveal">Let's make<br><em>something.</em></h2>
+  <p class="contact-sub reveal">Open to creative roles, collaborations, and commissions. Based in London, available from mid-2026.</p>
+  <a href="mailto:onyiverse@outlook.com" class="contact-btn primary reveal">Get in touch →</a>
+</section>
+
+<footer>
+  <span>© 2026 Onyiyechukwu Dozie</span>
+  <span>London, UK</span>
+  <a href="mailto:onyiverse@outlook.com">onyiverse@outlook.com</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

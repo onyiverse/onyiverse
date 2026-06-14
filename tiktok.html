@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short Form — Onyiverse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --black: #0A0806;
+  --amber: #C94A00;
+  --amber-light: #E85A00;
+  --warm-white: #FAF5EE;
+  --cream: #F2E8DA;
+  --tan: #C8A882;
+  --mid: #7A6A58;
+  --red-bg: #B83A00;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--warm-white); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 52px; transition: background 0.3s;
+}
+nav.scrolled { background: rgba(10,8,6,0.95); backdrop-filter: blur(12px); }
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: 0.06em; color: var(--amber); text-decoration: none; font-style: italic; }
+.nav-back { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--amber); }
+
+/* PAGE HEADER */
+.page-header {
+  min-height: 55vh;
+  background: var(--red-bg);
+  padding: 140px 52px 72px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+
+.page-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(10,8,6,0.5); margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(56px, 10vw, 130px);
+  line-height: 0.88; color: var(--black);
+  margin-bottom: 32px;
+}
+
+.page-desc {
+  max-width: 560px; font-size: 16px; font-weight: 300;
+  line-height: 1.8; color: rgba(10,8,6,0.7);
+}
+
+/* PHONES SECTION */
+.phones-section {
+  background: var(--red-bg);
+  padding: 80px 52px 100px;
+}
+
+.phones-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(10,8,6,0.4); margin-bottom: 56px; display: block;
+}
+
+.phones-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Phone mockup */
+.phone-wrap {
+  flex: 1; max-width: 280px;
+  position: relative;
+}
+
+.phone-shell {
+  background: #1A1A1A;
+  border-radius: 44px;
+  padding: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 32px 80px rgba(0,0,0,0.5),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  position: relative;
+}
+
+/* notch */
+.phone-shell::before {
+  content: '';
+  position: absolute;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 24px;
+  background: #1A1A1A;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+.phone-screen {
+  border-radius: 32px;
+  overflow: hidden;
+  aspect-ratio: 9/16;
+  background: #111;
+  position: relative;
+}
+
+.phone-screen img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+.phone-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px;
+  background: #0F0A06;
+}
+
+.phone-placeholder-label {
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(201,74,0,0.3); text-align: center; padding: 12px;
+  line-height: 1.6;
+}
+
+.phone-placeholder-icon {
+  font-size: 24px; opacity: 0.2;
+}
+
+.phone-caption {
+  margin-top: 16px;
+  font-size: 12px; font-weight: 300;
+  color: rgba(10,8,6,0.6); text-align: center;
+  line-height: 1.4;
+}
+
+/* middle phone slightly taller */
+.phone-wrap.center { transform: translateY(-24px); }
+
+/* TIKTOK LINK */
+.tiktok-cta {
+  background: var(--black);
+  padding: 72px 52px;
+  display: flex; justify-content: space-between; align-items: center; gap: 48px;
+}
+
+.tiktok-cta-left {}
+.tiktok-cta-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  color: var(--warm-white); margin-bottom: 12px;
+}
+.tiktok-cta-sub { font-size: 15px; font-weight: 300; color: var(--mid); max-width: 380px; line-height: 1.6; }
+
+.tiktok-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 44px;
+  background: var(--amber); color: var(--warm-white);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.tiktok-btn:hover { background: var(--amber-light); }
+
+.back-footer {
+  background: var(--red-bg); padding: 52px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.back-footer-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--black); }
+.back-btn {
+  border: 2px solid var(--black); color: var(--black);
+  padding: 14px 32px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.back-btn:hover { background: var(--black); color: var(--red-bg); }
+
+footer {
+  background: var(--black); padding: 28px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--mid);
+  border-top: 1px solid rgba(201,74,0,0.1);
+}
+footer a { color: var(--mid); text-decoration: none; }
+footer a:hover { color: var(--amber); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .page-header { padding: 120px 24px 52px; }
+  .phones-section { padding: 52px 24px 64px; }
+  .phones-row { flex-direction: column; align-items: center; gap: 24px; }
+  .phone-wrap { max-width: 220px; }
+  .phone-wrap.center { transform: none; }
+  .tiktok-cta { flex-direction: column; padding: 52px 24px; }
+  .back-footer { padding: 40px 24px; flex-direction: column; gap: 20px; align-items: flex-start; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Onyiverse</a>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">TikTok · @onyiverse</p>
+  <h1 class="page-title">SHORT<br>FORM<br>CONTENT</h1>
+  <p class="page-desc">Short-form video exploring culture, identity, books, and the world around us. 12K+ followers watching conversations about beauty standards, linguistics, girlhood, and the things no one talks about directly but everyone feels.</p>
+</div>
+
+<section class="phones-section">
+  <span class="phones-label reveal">Selected videos</span>
+
+  <div class="phones-row">
+
+    <!--
+      PHONE 1 — left
+      To add a video thumbnail: replace .phone-placeholder with:
+      <img src="tiktok-thumb-01.jpg" alt="TikTok video" style="width:100%;height:100%;object-fit:cover;">
+      To embed an actual video: 
+      <video src="tiktok-01.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+    -->
+    <div class="phone-wrap reveal">
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="phone-placeholder">
+            <div class="phone-placeholder-icon">▶</div>
+            <div class="phone-placeholder-label">Add TikTok thumbnail<br>tiktok-thumb-01.jpg</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-caption">Add caption or video title here</p>
+    </div>
+
+    <!--
+      PHONE 2 — centre (slightly elevated)
+      Replace .phone-placeholder as above with tiktok-thumb-02.jpg
+    -->
+    <div class="phone-wrap center reveal">
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="phone-placeholder">
+            <div class="phone-placeholder-icon">▶</div>
+            <div class="phone-placeholder-label">Add TikTok thumbnail<br>tiktok-thumb-02.jpg</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-caption">Add caption or video title here</p>
+    </div>
+
+    <!--
+      PHONE 3 — right
+      Replace .phone-placeholder as above with tiktok-thumb-03.jpg
+    -->
+    <div class="phone-wrap reveal">
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="phone-placeholder">
+            <div class="phone-placeholder-icon">▶</div>
+            <div class="phone-placeholder-label">Add TikTok thumbnail<br>tiktok-thumb-03.jpg</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-caption">Add caption or video title here</p>
+    </div>
+
+    <!-- Add more phones here by copying a .phone-wrap block -->
+
+  </div>
+</section>
+
+<div class="tiktok-cta reveal">
+  <div class="tiktok-cta-left">
+    <div class="tiktok-cta-title">Watch on TikTok</div>
+    <p class="tiktok-cta-sub">12K+ followers. New videos on culture, books, identity, and everything in between.</p>
+  </div>
+  <a href="https://www.tiktok.com/@onyiverse" target="_blank" rel="noopener" class="tiktok-btn">@onyiverse ↗</a>
+</div>
+
+<div class="back-footer">
+  <div class="back-footer-title">← Back to Onyiverse</div>
+  <a href="index.html" class="back-btn">Home</a>
+</div>
+
+<footer>
+  <span>© 2026 Onyiyechukwu Dozie</span>
+  <span>London, UK</span>
+  <a href="mailto:onyiverse@outlook.com">onyiverse@outlook.com</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

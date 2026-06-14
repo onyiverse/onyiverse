@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Storytelling — Onyiverse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --black: #0A0806;
+  --amber: #C94A00;
+  --amber-light: #E85A00;
+  --warm-white: #FAF5EE;
+  --cream: #F2E8DA;
+  --tan: #C8A882;
+  --mid: #7A6A58;
+  --dark-section: #0F0C09;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--warm-white); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 52px; transition: background 0.3s;
+}
+nav.scrolled { background: rgba(10,8,6,0.95); backdrop-filter: blur(12px); }
+.nav-logo { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: 0.06em; color: var(--amber); text-decoration: none; font-style: italic; }
+.nav-back { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tan); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--amber); }
+
+/* PAGE HEADER */
+.page-header {
+  min-height: 60vh;
+  background: var(--black);
+  padding: 140px 52px 72px;
+  border-bottom: 1px solid rgba(201,74,0,0.15);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,74,0,0.06) 0%, transparent 70%);
+  top: 10%; right: -5%; pointer-events: none;
+}
+
+.page-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--amber); opacity: 0.6; margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.9; color: var(--warm-white);
+  margin-bottom: 32px;
+}
+
+.page-title em { font-style: italic; color: var(--amber); }
+
+.page-desc {
+  max-width: 560px; font-size: 16px; font-weight: 300;
+  line-height: 1.8; color: var(--tan);
+}
+
+/* PHOTO SECTIONS */
+.photo-section {
+  padding: 80px 52px;
+  border-bottom: 1px solid rgba(201,74,0,0.08);
+}
+
+.photo-section:nth-child(even) { background: var(--dark-section); }
+
+.section-header { margin-bottom: 48px; }
+
+.section-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.6; margin-bottom: 10px;
+}
+
+.section-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  color: var(--warm-white); margin-bottom: 12px;
+}
+
+.section-desc {
+  font-size: 15px; font-weight: 300; color: var(--mid);
+  max-width: 480px; line-height: 1.7;
+}
+
+/* PHOTO GRIDS */
+.photo-grid { display: grid; gap: 3px; }
+.photo-grid.cols-3 { grid-template-columns: repeat(3,1fr); }
+.photo-grid.cols-2 { grid-template-columns: repeat(2,1fr); }
+.photo-grid.cols-3 .span-2,
+.photo-grid.cols-2 .span-2 { grid-column: span 2; }
+
+.photo-slot { overflow: hidden; background: #150F07; position: relative; }
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.photo-slot:hover img { transform: scale(1.04); }
+
+.photo-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; background: #150F07; position: relative;
+}
+.photo-slot.tall .photo-placeholder { aspect-ratio: 3/4; }
+.photo-slot.wide .photo-placeholder,
+.photo-slot.span-2 .photo-placeholder { aspect-ratio: 16/9; }
+.photo-slot.square .photo-placeholder { aspect-ratio: 1/1; }
+
+.placeholder-ring {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 1px solid rgba(201,74,0,0.15);
+  position: absolute;
+}
+
+.placeholder-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(201,74,0,0.2);
+}
+
+.placeholder-text {
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(201,74,0,0.25); text-align: center; padding: 0 16px;
+  position: relative; z-index: 1; line-height: 1.6;
+}
+
+/* BACK FOOTER */
+.back-footer {
+  background: var(--amber); padding: 60px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.back-footer-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--black); }
+.back-btn {
+  border: 2px solid var(--black); color: var(--black);
+  padding: 14px 32px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.back-btn:hover { background: var(--black); color: var(--amber); }
+
+footer {
+  background: var(--black); padding: 28px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--mid);
+  border-top: 1px solid rgba(201,74,0,0.1);
+}
+footer a { color: var(--mid); text-decoration: none; }
+footer a:hover { color: var(--amber); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; }
+  .page-header { padding: 120px 24px 52px; }
+  .photo-section { padding: 56px 24px; }
+  .photo-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+  .back-footer { padding: 40px 24px; flex-direction: column; gap: 24px; align-items: flex-start; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .photo-grid.cols-3,
+  .photo-grid.cols-2 { grid-template-columns: 1fr; }
+  .photo-grid .span-2 { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Onyiverse</a>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Photography & Film</p>
+  <h1 class="page-title">Visual<br><em>Storytelling</em></h1>
+  <p class="page-desc">Capturing people, fashion, and culture in real-world settings. Whether through candid film photography or curated digital visuals, my goal is to create work that feels intentional, warm, and human.</p>
+</div>
+
+<!-- ══ HERTUNBA / LFW ══ -->
+<div class="photo-section">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Concept Production · Film</p>
+    <h2 class="section-name">Hertunba — Lagos Fashion Week</h2>
+    <p class="section-desc">Concept production for a video created as part of Hertunba's participation in Lagos Fashion Week 2025. Responsible for creative concept, narrative direction, and visual identity.</p>
+  </div>
+  <div class="photo-grid cols-2 reveal">
+    <!--
+      LFW VIDEO: Replace placeholder with a video embed or still:
+      Option A — video file:
+      <div class="photo-slot span-2" style="aspect-ratio:16/9;">
+        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+          <source src="hertunba-lfw.mp4" type="video/mp4">
+        </video>
+      </div>
+      Option B — still image:
+      <div class="photo-slot span-2"><img src="hertunba-lfw.jpg" alt="Hertunba LFW" style="aspect-ratio:16/9;"></div>
+    -->
+    <div class="photo-slot span-2">
+      <div class="photo-placeholder" style="aspect-ratio:16/9;">
+        <div class="placeholder-ring"></div>
+        <div class="placeholder-dot"></div>
+        <div class="placeholder-text">Hertunba × LFW video or still<br>hertunba-lfw.mp4 or hertunba-lfw.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">BTS or campaign still<br>lfw-02.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">Campaign still<br>lfw-03.jpg</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ARCHIF ══ -->
+<div class="photo-section">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Brand Photography</p>
+    <h2 class="section-name">Archif</h2>
+    <p class="section-desc">Visual content for Archif, the Lebanese vintage reseller platform — capturing the texture, provenance, and character of curated vintage pieces.</p>
+  </div>
+  <div class="photo-grid cols-3 reveal">
+    <div class="photo-slot wide span-2">
+      <div class="photo-placeholder" style="aspect-ratio:16/9;">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">Archif hero shot<br>archif-01.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot tall">
+      <div class="photo-placeholder" style="aspect-ratio:3/4;">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">archif-02.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">archif-03.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">archif-04.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">archif-05.jpg</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ JANDED ══ -->
+<div class="photo-section">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Brand Photography</p>
+    <h2 class="section-name">Janded</h2>
+    <p class="section-desc">Visual content for Janded, the African fashion rental business in the UK — celebrating the vibrancy, craft, and cultural richness of African fashion through photography.</p>
+  </div>
+  <div class="photo-grid cols-2 reveal">
+    <div class="photo-slot tall">
+      <div class="photo-placeholder" style="aspect-ratio:3/4;">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">janded-01.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot tall">
+      <div class="photo-placeholder" style="aspect-ratio:3/4;">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">janded-02.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot span-2">
+      <div class="photo-placeholder" style="aspect-ratio:16/9;">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">janded-03.jpg — wide editorial</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">janded-04.jpg</div>
+      </div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-placeholder">
+        <div class="placeholder-ring"></div><div class="placeholder-dot"></div>
+        <div class="placeholder-text">janded-05.jpg</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OTHER WORK ══ -->
+<div class="photo-section">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Photography</p>
+    <h2 class="section-name">Other Work</h2>
+    <p class="section-desc">Fashion, culture, and live environments. People in real settings — atmosphere, interaction, and moments that feel true.</p>
+  </div>
+  <div class="photo-grid cols-3 reveal">
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-01.jpg</div></div></div>
+    <div class="photo-slot tall"><div class="photo-placeholder" style="aspect-ratio:3/4;"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-02.jpg</div></div></div>
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-03.jpg</div></div></div>
+    <div class="photo-slot span-2 wide"><div class="photo-placeholder" style="aspect-ratio:16/9;"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-04.jpg — landscape</div></div></div>
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-05.jpg</div></div></div>
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-06.jpg</div></div></div>
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-07.jpg</div></div></div>
+    <div class="photo-slot"><div class="photo-placeholder"><div class="placeholder-ring"></div><div class="placeholder-dot"></div><div class="placeholder-text">misc-08.jpg</div></div></div>
+  </div>
+</div>
+
+<div class="back-footer">
+  <div class="back-footer-title">← Back to Onyiverse</div>
+  <a href="index.html" class="back-btn">Home</a>
+</div>
+
+<footer>
+  <span>© 2026 Onyiyechukwu Dozie</span>
+  <span>London, UK</span>
+  <a href="mailto:onyiverse@outlook.com">onyiverse@outlook.com</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
