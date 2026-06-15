@@ -220,6 +220,21 @@ footer a:hover { color: var(--amber); }
   </div>
 </div>
 
+<!-- Lightbox overlay -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;" onclick="this.style.display='none'">
+  <img id="lightbox-img" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+  });
+</script>
+
 <!-- ══ ARCHIF ══ -->
 <div class="photo-section">
   <div class="section-header reveal">
@@ -228,15 +243,12 @@ footer a:hover { color: var(--amber); }
     <p class="section-desc">Visual content for Archif, the Lebanese vintage reseller platform — capturing the texture, provenance, and character of curated vintage pieces.</p>
   </div>
   <div class="photo-grid cols-3 reveal">
-    <!-- Hero — spans 2 cols, stretches to match portrait height -->
     <div class="photo-slot span-2 clickable" style="height:560px;" onclick="openLightbox('ARCHIF-01.jpg')">
       <img src="ARCHIF-01.jpg" alt="Archif">
     </div>
-    <!-- Portrait on the right -->
     <div class="photo-slot clickable" style="height:560px;" onclick="openLightbox('ARCHIF-02.JPG')">
       <img src="ARCHIF-02.JPG" alt="Archif">
     </div>
-    <!-- Three equal squares on the bottom row -->
     <div class="photo-slot h-square clickable" onclick="openLightbox('ARCHIF-03.JPG')">
       <img src="ARCHIF-03.JPG" alt="Archif">
     </div>
@@ -257,21 +269,18 @@ footer a:hover { color: var(--amber); }
     <p class="section-desc">Visual content for Janded, the African fashion rental business in the UK — celebrating the vibrancy, craft, and cultural richness of African fashion through photography.</p>
   </div>
   <div class="photo-grid cols-3 reveal">
-    <!-- Row 1: janded5 tall portrait | janded1 wide spans 2 cols -->
     <div class="photo-slot clickable" style="height:580px;" onclick="openLightbox('janded5.png')">
       <img src="janded3.JPG" alt="Janded">
     </div>
     <div class="photo-slot span-2 clickable" style="height:580px;" onclick="openLightbox('janded1.JPG')">
       <img src="janded5.png" alt="Janded">
     </div>
-    <!-- Row 2: janded3 spans 2 cols | janded4 tall portrait -->
     <div class="photo-slot span-2 clickable" style="height:580px;" onclick="openLightbox('janded3.JPG')">
       <img src="janded4.jpg" alt="Janded">
     </div>
     <div class="photo-slot clickable" style="height:580px;" onclick="openLightbox('janded4.jpg')">
       <img src="janded2.JPG" alt="Janded">
     </div>
-    <!-- Row 3: janded2 full width -->
     <div class="photo-slot span-2 clickable" style="height:500px;" onclick="openLightbox('janded2.JPG')">
       <img src="janded1.JPG" alt="Janded">
     </div>
@@ -303,7 +312,7 @@ footer a:hover { color: var(--amber); }
     <img src="picture4.jpg" alt="misc-04" onclick="openLightbox(this)" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block;aspect-ratio:16/9;">
   </div>
   <div class="photo-slot">
-    <img src="picture5.JPG" alt="misc-05" onclick="openLightbox(this)" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block;">
+    <img src="picture5.JPEG" alt="misc-05" onclick="openLightbox(this)" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block;">
   </div>
   <div class="photo-slot">
     <img src="picture6.jpg" alt="misc-06" onclick="openLightbox(this)" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block;">
